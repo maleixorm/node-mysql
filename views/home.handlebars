@@ -1,1 +1,12 @@
-<h1>Meu Projeto</h1>
+<h1>Cadastre o seu livro:</h1>
+<form action="/books/insertbook" method="post">
+    <div class="form-control">
+        <label for="title">Título:</label>
+        <input type="text" name="title" id="title" placeholder="Digite o título...">
+    </div>
+    <div class="form-control">
+        <label for="pagesqtd">Quantidade de páginas:</label>
+        <input type="number" name="pagesqtd" id="pagesqtd" placeholder="N">
+    </div>
+    <input type="submit" value="Cadastrar">
+</form>
