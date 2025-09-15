@@ -6,7 +6,22 @@ h1 {
     text-align: center;
 }
 
-form {
+.form {
     width: 450px;
     margin: 0 auto;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+}
+
+.form-control label {
+    font-weight: 700;
+    margin-bottom: .3rem;
+}
+
+.form-control input {
+    padding: .4rem;
 }
