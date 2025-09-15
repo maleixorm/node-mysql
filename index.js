@@ -3,6 +3,15 @@ const epxhbs = require('express-handlebars')
 const mysql = require('mysql2')
 
 const app = express();
+
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+)
+
+app.use(express.json())
+
 app.engine('handlebars', epxhbs.engine())
 app.set('view engine', 'handlebars')
 app.set('views', './views');
@@ -11,6 +20,18 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     res.render('home')
+})
+
+app.post('/books/insertbook', (req, res) => {
+    const title = req.body.title
+    const pageqtd = parseInt(req.body.pageqtd)
+    const query = `INSERT INTO books (title, pages) VALUES ('${title}', ${pageqtd})`
+    conn.query(query, function(err) {
+        if (err) {
+            console.log(err)
+        }
+        res.redirect('/')
+    })
 })
 
 const conn = mysql.createConnection({
