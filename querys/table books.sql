@@ -3,3 +3,5 @@ CREATE TABLE `node_mysql`.`books` (
   `title` VARCHAR(250) NOT NULL,
   `pages` INT NOT NULL,
   PRIMARY KEY (`id`));
+  
+select * from books;
