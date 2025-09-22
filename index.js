@@ -42,7 +42,7 @@ app.post('/books/insertbook', (req, res) => {
         if (err) {
             console.log(err)
         }
-        res.redirect('/')
+        res.redirect('/books')
     })
 })
 
