@@ -22,6 +22,18 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/books', (req, res) => {
+    const query = "SELECT * FROM books";
+    conn.query(query, function(err, data) {
+        if (err) {
+            console.log(err)
+            return
+        }
+        const books = data
+        res.render('books', { books })
+    })
+})
+
 app.post('/books/insertbook', (req, res) => {
     const title = req.body.title
     const pageqtd = parseInt(req.body.pageqtd)
