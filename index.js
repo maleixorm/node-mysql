@@ -64,9 +64,25 @@ app.get("/books/edit/:id", (req, res) => {
     conn.query(sql, function(err, data){
         if (err) {
             console.log(err)
+            return
         }
         const book = data[0]
         res.render('editbook', { book })
+    })
+})
+
+app.post("/books/updatebook", (req, res) => {
+    const id = req.body.id
+    const title = req.body.title
+    const pages = req.body.pageqtd
+
+    const sql = `UPDATE books SET title = '${title}', pages = '${pages}' WHERE id = ${id}`
+    conn.query(sql, function (err) {
+        if (err) {
+            console.log(err)
+            return
+        }
+        res.redirect('/books')
     })
 })
 
