@@ -75,4 +75,10 @@ h1 {
 
 .actions {
     margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.actions a {
+    margin-right: 1rem;
 }
