@@ -58,6 +58,18 @@ app.get("/books/:id", (req, res) => {
     })
 })
 
+app.get("/books/edit/:id", (req, res) => {
+    const id = req.params.id
+    const sql = `SELECT * FROM books WHERE id = ${id}`
+    conn.query(sql, function(err, data){
+        if (err) {
+            console.log(err)
+        }
+        const book = data[0]
+        res.render('editbook', { book })
+    })
+})
+
 const conn = mysql.createConnection({
     host: 'localhost',
     user: 'php',
