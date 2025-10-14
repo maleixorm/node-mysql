@@ -1,6 +1,6 @@
 const express = require('express')
 const epxhbs = require('express-handlebars')
-const mysql = require('mysql2')
+const pool = require('./db/conn')
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 app.get('/books', (req, res) => {
     const query = "SELECT * FROM books";
-    conn.query(query, function(err, data) {
+    pool.query(query, function(err, data) {
         if (err) {
             console.log(err)
             return
@@ -38,7 +38,7 @@ app.post('/books/insertbook', (req, res) => {
     const title = req.body.title
     const pageqtd = parseInt(req.body.pageqtd)
     const query = `INSERT INTO books (title, pages) VALUES ('${title}', ${pageqtd})`
-    conn.query(query, function(err) {
+    pool.query(query, function(err) {
         if (err) {
             console.log(err)
         }
@@ -49,7 +49,7 @@ app.post('/books/insertbook', (req, res) => {
 app.get("/books/:id", (req, res) => {
     const id = req.params.id
     const query = `SELECT * FROM books WHERE id = ${id}`;
-    conn.query(query, function(err, data) {
+    pool.query(query, function(err, data) {
         if (err) {
             console.log(err)
         }
@@ -61,7 +61,7 @@ app.get("/books/:id", (req, res) => {
 app.get("/books/edit/:id", (req, res) => {
     const id = req.params.id
     const sql = `SELECT * FROM books WHERE id = ${id}`
-    conn.query(sql, function(err, data){
+    pool.query(sql, function(err, data){
         if (err) {
             console.log(err)
             return
@@ -77,7 +77,7 @@ app.post("/books/updatebook", (req, res) => {
     const pages = req.body.pageqtd
 
     const sql = `UPDATE books SET title = '${title}', pages = '${pages}' WHERE id = ${id}`
-    conn.query(sql, function (err) {
+    pool.query(sql, function (err) {
         if (err) {
             console.log(err)
             return
@@ -89,7 +89,7 @@ app.post("/books/updatebook", (req, res) => {
 app.post("/books/remove/:id", (req, res) => {
     const id = req.params.id
     const sql = `DELETE FROM books WHERE id = ${id}`
-    conn.query(sql, function (err) {
+    pool.query(sql, function (err) {
         if (err) {
             console.log(err)
             return
@@ -98,17 +98,4 @@ app.post("/books/remove/:id", (req, res) => {
     })
 })
 
-const conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'php',
-    password: '123456',
-    database: 'node_mysql'
-})
-
-conn.connect(function(err) {
-    if (err) {
-        console.log(err)
-    }
-    console.log('Conectado ao Banco de dados!')
-    app.listen(3000)
-})
+app.listen(3000)
